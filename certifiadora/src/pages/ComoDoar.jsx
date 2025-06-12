@@ -21,7 +21,7 @@ export default function ComoDoar() {
 
       <div className="flex-grow bg-pink-300 overflow-hidden px-8 py-4">
         <h1 className="text-7xl font-bold">Como Doar</h1>
-        <p className="mt-2 text-lg">texto</p>
+        <p className="mt-2 text-lg">Nosso sistema foi desenvolvido para facilitar a visualização e o controle de produtos arrecadados e doados em ações sociais e projetos comunitários. Para doar, basta acessar a plataforma, escolher a campanha desejada e informar os itens que deseja contribuir. Todo o processo é simples, transparente e seguro, permitindo que sua doação chegue a quem realmente precisa.</p>
       </div>
     </div>
   );
