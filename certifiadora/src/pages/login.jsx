@@ -5,8 +5,8 @@ function Login() {
   return(
     <div className="h-screen flex font-sans bg-[#F4A0A8]">
 
-      <div className="w-3/5  flex items-center justify-center p-10 ">
-            <img src={CoracaoLogo} alt="Logo Coração Bons Fluidos" className="w-4/5" />
+      <div className="w-3/5 bg-[#EF6C78] flex items-center justify-center p-10 ">
+            <img src={CoracaoLogo} alt="Logo Coração Bons Fluidos" className="w-auto h-auto max-w-lg" />
         </div>
 
       <div className="w-2/5 flex items-center justify-center p-10">

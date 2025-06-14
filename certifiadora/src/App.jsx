@@ -4,9 +4,10 @@ import Tabela from './Pages/tabela';
 import QuemSomos from './pages/QuemSomos';
 import ComoDoar from './pages/ComoDoar';
 import Login from './pages/login'
+import Cadastro from './pages/cadastro'
 function App() {
   return (
-   <Login />
+   <Cadastro />
   );
  }
 
