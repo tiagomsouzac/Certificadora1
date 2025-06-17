@@ -1,7 +1,37 @@
 import React from 'react';
+import { useEffect, useState } from 'react';
 import CoracaoLogo from '../assets/coracao.jpg'; 
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios';
 
-function Login() { 
+function Login() {
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+  const [mensagem, setMensagem] = useState('');
+
+  const navigate = useNavigate()
+
+  function onClickToCadastro(){
+    navigate('/cadastro')
+  }
+
+  const handleLogin = async () => {
+    try {
+      const resposta = await axios.post('http://localhost:3001/login', {
+        email,
+        senha
+      });
+
+      if (resposta.data.sucesso) {
+        navigate('/tabela')
+      } else{
+        setMensagem('Login inválido')
+      }
+    } catch (erro) {
+      setMensagem(erro.response?.data?.mensagem || "Erro ao fazer login");
+    }
+  };
+
   return(
     <div className="h-screen flex font-sans bg-[#F4A0A8]">
 
@@ -19,6 +49,8 @@ function Login() {
               <p className="text-sm text-gray-600 mb-1">Email</p>
               <input 
                 type="email" 
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 required 
                 className="w-full p-3 bg-white border border-gray-400 rounded-md focus:outline-none" 
               />
@@ -28,6 +60,8 @@ function Login() {
               <p className="text-sm text-gray-600 mb-1">Senha</p>
               <input 
                 type="password" 
+                value={senha}
+                onChange={(e) => setSenha(e.target.value)}
                 required 
                 className="w-full p-3 bg-white border border-gray-400 rounded-md focus:outline-none" 
               />
@@ -38,14 +72,15 @@ function Login() {
             </a>
 
             <button 
-              type="submit" 
+              type="button"
+              onClick={handleLogin}
               className="w-full bg-white text-black font-semibold py-3 rounded-md hover:bg-gray-200 transition-colors duration-300"
             >
               Login
             </button>
 
             <div className="text-center mt-4">
-              <a href="#" className="text-sm text-gray-800 hover:underline">
+              <a onClick={onClickToCadastro} href="#" className="text-sm text-gray-800 hover:underline">
                 Criar uma conta
               </a>
             </div>

@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom'
+
 function Registrar() {
   return (
     <div className="h-screen flex font-sans">

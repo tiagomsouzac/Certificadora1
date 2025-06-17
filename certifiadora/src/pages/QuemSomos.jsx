@@ -1,21 +1,37 @@
 import LogoHeader from '../assets/LogoHeader.png';
 import Banner from '../assets/Banner.png';
+import { useNavigate } from 'react-router-dom'
 
 export default function QuemSomos() {
+  const navigate = useNavigate()
+
+  function onClickToComoDoar(){
+    navigate('/como-doar')
+  }
+  function onClickToLogin(){
+    navigate('/login')
+  }
+  function onClickToCadastro(){
+    navigate('/cadastro')
+  }
+
   return (
     <div className="min-h-screen flex flex-col overflow-hidden">
       <div className="flex justify-between items-center p-4 bg-pink-500">
         <img src={LogoHeader} alt="Logo" className="h-10" />
 
         <div className="flex gap-4">
-          <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
+          <button className="px-4 py-2 bg-amber-900 text-white rounded hover:bg-amber-800 transition cursor-pointer">
+            Quem Somos
+          </button>
+          <button onClick={onClickToComoDoar} className="px-4 py-2 bg-amber-900 text-white rounded hover:bg-amber-800 transition cursor-pointer">
             Como doar
           </button>
-          <button className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition">
+          <button onClick={onClickToLogin} className="px-4 py-2 bg-amber-900 text-white rounded hover:bg-amber-800 transition cursor-pointer">
             Login
           </button>
-          <button className="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 transition">
-            Registre-se
+          <button onClick={onClickToCadastro} className="px-4 py-2 bg-amber-900 text-white rounded hover:bg-amber-800 transition cursor-pointer">
+            Cadastrar-se
           </button>
         </div>
       </div>

@@ -5,9 +5,10 @@ import QuemSomos from './pages/QuemSomos';
 import ComoDoar from './pages/ComoDoar';
 import Login from './pages/login'
 import Cadastro from './pages/cadastro'
+
 function App() {
   return (
-   <Cadastro />
+   <QuemSomos />
   );
  }
 
