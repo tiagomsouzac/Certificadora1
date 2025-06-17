@@ -1,53 +1,83 @@
 const express = require('express');
-const cors = require('cors');
 const mysql = require('mysql2');
-
+const cors = require('cors');
 const app = express();
 const PORT = 3001;
 
+// Middleware
 app.use(cors());
 app.use(express.json());
 
-// Conexão com o banco de dados MySQL
-const conexao = mysql.createConnection({
+// Conexão com o banco de dados
+const db = mysql.createConnection({
   host: 'localhost',
-  user: 'root',          // ou o usuário que você estiver usando
-  password: '1337',          // sua senha do MySQL
-  database: 'sistema_login'
+  user: 'root',
+  password: '', // Altere se você tiver senha
+  database: 'sistema_login' // Seu banco atual
 });
 
-// Testa conexão com o banco
-conexao.connect((err) => {
+// Verificar conexão com o banco
+db.connect((err) => {
   if (err) {
-    console.error('Erro ao conectar ao banco de dados:', err);
-    return;
+    console.error('Erro ao conectar no banco de dados:', err);
+  } else {
+    console.log('Conectado ao banco de dados MySQL!');
   }
-  console.log('Conectado ao banco de dados MySQL!');
 });
 
 // Rota de login
 app.post('/login', (req, res) => {
   const { email, senha } = req.body;
 
-  if (!email || !senha) {
-    return res.status(400).json({ sucesso: false, mensagem: 'Email e senha são obrigatórios.' });
-  }
-
-  const query = 'SELECT * FROM usuarios WHERE email = ? AND senha = ?';
-  conexao.query(query, [email, senha], (err, resultados) => {
-    if (err) {
-      console.error('Erro ao consultar o banco:', err);
-      return res.status(500).json({ sucesso: false, mensagem: 'Erro no servidor.' });
+  db.query(
+    'SELECT * FROM usuarios WHERE email = ? AND senha = ?',
+    [email, senha],
+    (err, result) => {
+      if (err) {
+        console.error('Erro ao fazer login:', err);
+        res.status(500).json({ sucesso: false, mensagem: 'Erro no servidor' });
+      } else {
+        if (result.length > 0) {
+          res.json({ sucesso: true });
+        } else {
+          res.json({ sucesso: false, mensagem: 'Email ou senha inválidos' });
+        }
+      }
     }
+  );
+});
 
-    if (resultados.length > 0) {
-      return res.json({ sucesso: true });
+// Rota para buscar todas as doações
+app.get('/doacoes', (req, res) => {
+  db.query('SELECT * FROM doacoes', (err, result) => {
+    if (err) {
+      console.error('Erro ao buscar doações:', err);
+      res.status(500).json({ sucesso: false, mensagem: 'Erro ao buscar doações' });
     } else {
-      return res.status(401).json({ sucesso: false, mensagem: 'Email ou senha inválidos.' });
+      res.json(result);
     }
   });
 });
 
+// Rota para registrar nova doação
+app.post('/doacoes', (req, res) => {
+  const { origem, tipo, nota_fiscal, quantidade, validade } = req.body;
+
+  db.query(
+    'INSERT INTO doacoes (origem, tipo, nota_fiscal, quantidade, validade) VALUES (?, ?, ?, ?, ?)',
+    [origem, tipo, nota_fiscal, quantidade, validade],
+    (err, result) => {
+      if (err) {
+        console.error('Erro ao inserir doação:', err);
+        res.status(500).json({ sucesso: false, mensagem: 'Erro ao registrar doação' });
+      } else {
+        res.json({ sucesso: true, mensagem: 'Doação registrada com sucesso!' });
+      }
+    }
+  );
+});
+
+// Inicia o servidor
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
 });
