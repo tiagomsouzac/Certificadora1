@@ -33,8 +33,7 @@ function Registrar() {
   return (
     <div className="h-screen flex font-sans">
         <div className="w-1/3 bg-pink-500 flex flex-col items-center justify-center text-white p-10">
-            <img src="/src/pages/Logo.png" alt="Logo Bons Fluidos"></img>
-            <h1 className="text-4xl font-bold italic">Bons Fluidos</h1>
+            <img src="/src/assets/Logo.png" alt="Logo Bons Fluidos"></img>
         </div>
 
         <div className="w-2/3 bg-pink-300 flex items-center justify-center">
