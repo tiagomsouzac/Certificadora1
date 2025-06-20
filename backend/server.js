@@ -12,7 +12,7 @@ app.use(express.json());
 const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: '', // Altere se você tiver senha
+  password: '1337', // Altere se você tiver senha
   database: 'sistema_login' // Seu banco atual
 });
 
